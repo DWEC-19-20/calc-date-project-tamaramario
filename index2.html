@@ -6,8 +6,8 @@
     <body>
 
     <h2>Parte 1.</h2>
-        Fecha Inicio: 
-            <input type="date" id="fi1" name="fi1">
+        Fecha: 
+            <input type="date" value="" id="fi1" name="fi1">
 
         Días Naturales:
             <input type="text" name="dn1" id="dn1" />
@@ -54,15 +54,34 @@
         <p>Días Hábiles:
         <input type="text" name="dh4" id="dh4" readonly/></p>
 
-    <h2>Fecha actual</h2>
-        <script>
-		window.open("index2.html", "nombre de la ventana", "width=300, height=200");
-            var f = new Date();
-            document.getElementById("fi1").value = f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate(); 
-            document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
-        </script>
+    <script>
+        function getDate() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
 
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("fi1").value = today;
+            document.getElementById("fi2").value = today;
+            document.getElementById("ff2").value = today;
+            document.getElementById("fi3").value = today;
+            document.getElementById("fi4").value = today;
+            document.getElementById("ff4").value = today;
+        }
     
+        window.onload = function() {
+            getDate();
+        };
+    </script>
     <script type="text/javascript" src="js/dateCalc.js"></script>
     </body>
 </html>
