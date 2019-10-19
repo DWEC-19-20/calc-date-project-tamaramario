@@ -63,8 +63,25 @@ function getDays(startdate, endDate) {
    days: número de días hábiles
    return el resultado como un string en formato dd/mm/YYYY
 */
-function calcWorkingDate(startdate, days) { 
-  return new Date().toLocaleDateString("es-ES");
+function calcWorkingDate(startdate, days) {
+  var entra = false;
+  if(days<0){
+    days = days * -1;
+    entra = true;
+  }
+  var i = 0;
+  var FechaIn = new Date(startdate);
+  while(i<days){
+    if(entra){
+      FechaIn = new Date(FechaIn.getTime()-MILI);
+    }else{
+      FechaIn = new Date(FechaIn.getTime()+MILI);
+    }
+    if(FechaIn.getDay() != 6 && FechaIn.getDay()!=0){
+      i++;
+    }
+  }
+  return new Date(FechaIn.getTime()).toLocaleDateString("es-ES");
 }
 
 /* Función que recibe dos fechas de tipo Date y devuelva el el número de días hábiles que hay entre
