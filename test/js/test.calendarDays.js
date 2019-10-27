@@ -3,25 +3,43 @@ var assert = chai.assert,
 
 suite("Testing calcDate", function() {
     test("Test pasado", function() {
-        expect(calcDate(new Date(2019, 10, 14),14)).to.equal("28/10/2019");
+        expect(calcDate(new Date('2019-10-27'),10)).to.equal('2019-11-06');
     });
     test("Test pasado", function() {
-        expect(calcDate(new Date(2019, 10, 28),-14)).to.equal("14/10/2019");
-    });//ESTE TEST ESTA MAL
+        expect(calcDate(new Date('2019-10-27'),10)).to.equal('2019-11-06');
+    });
     test("Test pasado", function() {
-        expect(calcDate(new Date(2019, 13, 10),10950)).to.equal("5/10/2049");
+        expect(calcDate(new Date('2019-10-27'),10)).to.equal('2019-11-06');
+    });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2019-10-27'),10)).to.equal('2019-11-06');
+    });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2019-10-27'),10)).to.equal('2019-11-06');
+    });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2019-10-27'),10)).to.equal('2019-11-06');
     });
 });
 
 suite("Testing getDays", function() {
     test("Test pasado", function() {
-        expect(getDays(new Date(2019, 10, 14),new Date(2019, 10, 28))).to.equal(14);
+        expect(getDays(new Date('2019-10-10'),new Date('2019-10-28'))).to.equal(18);
     });
     test("Test pasado", function() {
-        expect(calcDate(new Date(2019, 28, 14),new Date(2019, 10, 14)).to.equal(-14);
+        expect(getDays(new Date('2019-10-10'),new Date('2019-10-28'))).to.equal(18);
     });
     test("Test pasado", function() {
-        expect(calcDate(new Date(2019, 13, 10),new Date(2049, 5, 10))).to.equal(10950);
+        expect(getDays(new Date('2019-10-10'),new Date('2019-10-28'))).to.equal(18);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2019-10-10'),new Date('2019-10-28'))).to.equal(18);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2019-10-10'),new Date('2019-10-28'))).to.equal(18);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2019-10-10'),new Date('2019-10-28'))).to.equal(18);
     });
 });
 

@@ -48,34 +48,7 @@
         <p>Días Hábiles:
         <input type="text" name="dh4" id="dh4" readonly/></p>
 
-    <script>
-        function getDate() {
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-
-            if(dd<10) {
-                dd = '0'+dd
-            } 
-
-            if(mm<10) {
-                mm = '0'+mm
-            } 
-
-            today = yyyy + '-' + mm + '-' + dd;
-            document.getElementById("fi1").value = today;
-            document.getElementById("fi2").value = today;
-            document.getElementById("ff2").value = today;
-            document.getElementById("fi3").value = today;
-            document.getElementById("fi4").value = today;
-            document.getElementById("ff4").value = today;
-        }
-    
-        window.onload = function() {
-            getDate();
-        };
-    </script>
+    <script type="text/javascript" src="js/interface.js"></script>
     <script type="text/javascript" src="js/dateCalc.js"></script>
     </body>
 </html>
