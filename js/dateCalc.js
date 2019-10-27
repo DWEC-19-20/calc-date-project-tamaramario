@@ -4,7 +4,7 @@ document.getElementById("fi1").value = f.getDate() + "/" + (f.getMonth() +1) + "
 document.getElementById("Calcular1").addEventListener("click",function(e){
   var fi1 = document.getElementById("fi1").value; 
   var dn1 = document.getElementById("dn1").value;
-  document.getElementById("ff1").value = calcDate(fi1, dn1); 
+  document.getElementById("fi1").value = calcDate(fi1, dn1);
 });
 
 document.getElementById("Calcular2").addEventListener("click",function(e){
@@ -16,7 +16,7 @@ document.getElementById("Calcular2").addEventListener("click",function(e){
 document.getElementById("Calcular3").addEventListener("click",function(e){
   var fi3 = document.getElementById("fi3").value; 
   var dh3 = document.getElementById("dh3").value;  
-  document.getElementById("ff3").value = calcWorkingDate(fi3, dh3); 
+  document.getElementById("fi3").value = calcWorkingDate(fi3, dh3); 
 });
 
 document.getElementById("Calcular4").addEventListener("click",function(e){
@@ -26,9 +26,7 @@ document.getElementById("Calcular4").addEventListener("click",function(e){
 });
 
 const MILI = 86400000;
-const MILI_YEAR = 31556900000;
-
-
+var festivos = ["01-01","01-06","05-01","08-15","10-12","11-01","12-06","12-08","12-25"];
 
 /* Función que suma o resta un número de dias naturales según el valor de operation 
    startdate: objeto Fecha 
@@ -39,7 +37,12 @@ function calcDate(startdate, days) {
   var fecha = new Date(startdate); //Asigna a fecha la variable formato fecha que recoge
   var fechaMS = fecha.getTime(); //Pasa fecha a milisegundos
   var daysMS = days * MILI; //Pasa los días a milisegundos
-  return new Date(fechaMS+daysMS).toLocaleDateString("es-ES"); //Devuelve la suma de los milisegundos en formato fecha
+
+  var fechaFin = new Date(fechaMS+daysMS);
+
+  var fecha_text = fechaFin.toISOString().substring(0, 10);
+  
+  return  fecha_text;
 }
 
 /* Función que recibe dos fechas de tipo Date y devuelva el el número de días naturales que hay entre
@@ -64,6 +67,7 @@ function getDays(startdate, endDate) {
    return el resultado como un string en formato dd/mm/YYYY
 */
 function calcWorkingDate(startdate, days) {
+
   var entra = false;
   if(days<0){
     days = days * -1;
@@ -71,6 +75,7 @@ function calcWorkingDate(startdate, days) {
   }
   var i = 0;
   var FechaIn = new Date(startdate);
+
   while(i<days){
     if(entra){
       FechaIn = new Date(FechaIn.getTime()-MILI);
@@ -78,10 +83,16 @@ function calcWorkingDate(startdate, days) {
       FechaIn = new Date(FechaIn.getTime()+MILI);
     }
     if(FechaIn.getDay() != 6 && FechaIn.getDay()!=0){
+      for(var indice in festivos){
+        if(FechaIn.toISOString().substring(5, 10) == festivos[indice]){
+          i--;
+        }
+      }
       i++;
     }
   }
-  return new Date(FechaIn.getTime()).toLocaleDateString("es-ES");
+  var fecha_text = FechaIn.toISOString().substring(0, 10);
+  return  fecha_text;
 }
 
 /* Función que recibe dos fechas de tipo Date y devuelva el el número de días hábiles que hay entre
@@ -89,7 +100,29 @@ function calcWorkingDate(startdate, days) {
   startdate: objeto Fecha inicio
   endDate: objeto Fecha inicio
   return número de días hábiles entre las dos fechas*/
-function getWorkingDays(startdate, endDate) {
-   return 0;
-}
 
+function getWorkingDays(startdate, endDate) {
+
+  //días hábiles son las fechas que no caen en uno de los siguientes días: fines de semana, 
+  //1 enero, 6 enero, 1 mayo ,15 agosto, 12 octubre, 1 noviembre, 6 diciembre, 8 diciembre y 25 diciembre
+
+  var diasNaturales = getDays(startdate,endDate);
+  var FechaIn =  new Date(startdate);
+  var restaDias = 0;
+
+  for (i=0;i<diasNaturales;i++){
+    if(FechaIn.getDay()==6 || FechaIn.getDay()==0){
+      restaDias++;
+    }
+    else{
+      for(var indice in festivos){
+        if(FechaIn.toISOString().substring(5, 10) == festivos[indice]){
+          restaDias++;
+        }
+      }
+    }
+    FechaIn = new Date(FechaIn.getTime()+MILI);
+  }
+
+  return diasNaturales - restaDias;
+}
