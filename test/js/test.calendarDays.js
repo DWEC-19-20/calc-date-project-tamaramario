@@ -20,6 +20,18 @@ suite("Testing calcDate", function() {
     test("Test pasado", function() {
         expect(calcDate(new Date('2019-01-29'),1168)).to.equal('2022-04-11');
     });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2017-07-25'),500)).to.equal('2018-12-07');
+    });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2019-10-27'),-1000)).to.equal('2017-01-30');
+    });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2012-02-28'),300)).to.equal('2012-12-24');
+    });
+    test("Test pasado", function() {
+        expect(calcDate(new Date('2019-01-29'),-1168)).to.equal('2015-11-18');
+    });
 });
 
 suite("Testing getDays", function() {
@@ -40,6 +52,18 @@ suite("Testing getDays", function() {
     });
     test("Test pasado", function() {
         expect(getDays(new Date('2019-01-29'),new Date('2022-04-11'))).to.equal(1168);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2017-07-25'),new Date('2022-02-10'))).to.equal(1661);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2019-10-27'),new Date('2017-10-26'))).to.equal(-731);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2012-02-28'),new Date('2012-03-01'))).to.equal(2);
+    });
+    test("Test pasado", function() {
+        expect(getDays(new Date('2019-01-29'),new Date('2019-04-11'))).to.equal(72);
     });
 });
 
